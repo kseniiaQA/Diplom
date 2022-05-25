@@ -13,7 +13,7 @@
 Имена классов и объектов начинаются с заглавной буквы и используют PascalCase.
 
   Пример:
-  * `open class DeclarationProcessor { /*...*/ }
+  * `open class DeclarationProcessor { /*...*/ } 
   `
   * `object EmptyDeclarationProcessor : DeclarationProcessor() { /*...*/ }
   `
