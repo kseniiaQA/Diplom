@@ -45,20 +45,18 @@ public class AuthorizationPage {
     }
 
     @Test
-    public void signInWrong() {
+    public void WrongSignIn() {
         AuthorizationSteps.isAuthorizationScreen();
         AuthorizationSteps.signIn();
         ViewInteraction emptyToast = onView(withText(R.string.empty_login_or_password)).inRoot(withDecorView(not(is(mActivityTestRule.getActivity().getWindow().getDecorView()))));
         ViewInteraction wrongToast = onView(withText(R.string.wrong_login_or_password)).inRoot(withDecorView(not(is(mActivityTestRule.getActivity().getWindow().getDecorView()))));
-
+        AuthorizationSteps.signIn();
         emptyToast.check(matches(withText("Login and password cannot be empty")));
-
         SystemClock.sleep(1500);
         AuthorizationSteps.enterLogin(" ");
         AuthorizationSteps.enterPassword(" ");
         AuthorizationSteps.signIn();
         emptyToast.check(matches(withText("Login and password cannot be empty")));
-
         SystemClock.sleep(1500);
         AuthorizationSteps.enterLogin("111");
         AuthorizationSteps.enterPassword("1113");
@@ -68,14 +66,13 @@ public class AuthorizationPage {
     }
 
     @Test
-    public void signInOK() {
+    public void OKsignIn() {
         AuthorizationSteps.isAuthorizationScreen();
         AuthorizationSteps.enterLogin("login2");
         AuthorizationSteps.enterPassword("password2");
         AuthorizationSteps.signIn();
         SystemClock.sleep(2500);
         MainSteps.isMainScreen();
-
         CommonSteps.logout();
     }
 
