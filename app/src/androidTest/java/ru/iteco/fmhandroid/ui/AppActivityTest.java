@@ -13,6 +13,19 @@ import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static ru.iteco.fmhandroid.ui.utils.Utils.checkClaimStatus;
+import static ru.iteco.fmhandroid.ui.utils.Utils.getCurrentDate;import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withChild;
+import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withParent;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static ru.iteco.fmhandroid.ui.utils.Utils.checkClaimStatus;
 import static ru.iteco.fmhandroid.ui.utils.Utils.getCurrentDate;
 import static ru.iteco.fmhandroid.ui.utils.Utils.getCurrentTime;
 import static ru.iteco.fmhandroid.ui.utils.Utils.isDisplayedWithSwipe;
@@ -31,6 +44,7 @@ import org.junit.runner.RunWith;
 import java.util.NoSuchElementException;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.steps.AboutSteps;
 import ru.iteco.fmhandroid.ui.steps.AuthorizationSteps;
@@ -60,11 +74,11 @@ public class AppActivityTest {
     AboutSteps AboutSteps = new AboutSteps();
     ThematicQuotesSteps ThematicQuotesSteps = new ThematicQuotesSteps();
 
-    public static String newsTitleString = "заголовок";
-    public static String newsDescriptionString = "описание";
-    public static String newNewsTitle = "тайтл";
-    String newsPublicationDate = "22.04.2022";
-    String newsTime = "06:30";
+    public static String newsTitleString = "Некий заголовок" + getCurrentDate() + "T" + getCurrentTime();
+    public static String newsDescriptionString = "Пробе пера" + getCurrentDate() + "T" + getCurrentTime();
+    public static String newNewsTitle = "Чудо чудесное" + getCurrentDate() + "T" + getCurrentTime();
+    String newsPublicationDate = getCurrentDate();
+    String newsTime = getCurrentTime();
 
     @Rule
     public ActivityTestRule<AppActivity> mActivityTestRule = new ActivityTestRule<>(AppActivity.class);
@@ -83,56 +97,83 @@ public class AppActivityTest {
         SystemClock.sleep(2000);
     }
 
+   
 
     @Test
+    @DisplayName("Открытие экрана новостей")
     public void openAllNews() {
         MainSteps.openAllNews();
         NewsSteps.isNewsScreen();
     }
-
-    @Test
-    public void openAllClaims() {
-        MainSteps.openAllClaims();
-        ClaimsSteps.isClaimsScreen();
-    }
-
-    @Test
-    public void expandAllItems() {
+    
+     @Test
+    @DisplayName("Разворачивание и сворачивание блока новостей и объявлений")
+    public void expandAll() {
         MainSteps.expandAllNews();
         MainSteps.allNewsNotDisplayed();
         MainSteps.expandAllClaims();
         MainSteps.allClaimsNotDisplayed();
+
         MainSteps.expandAllNews();
         MainSteps.allNewsDisplayed();
         MainSteps.expandAllClaims();
         MainSteps.allClaimsDisplayed();
     }
 
+    @Test
+    @DisplayName("Открытие экрана объявлений")
+    public void openAllClaims() {
+        MainSteps.openAllClaims(); 
+        ClaimsSteps.isClaimsScreen();
+    }
 
     @Test
+    @DisplayName("Разворачивание и сворачивание одной новости")
+    public void expandSingleNews() {
+        MainSteps.expandSingleNews();
+        MainSteps.collapseSingleNews();
+    }
+
+    @Test
+    @DisplayName("Открытие объявления и возврат из нее")
+    public void openSingleClaim() {
+        MainSteps.openSingleClaim();
+        EditClaimSteps.isClaimsEditScreen();
+        EditClaimSteps.backFromClaim();
+        MainSteps.isMainScreen();
+    }
+
+    @Test
+    @DisplayName("Создание объявления")
     public void createClaim() {
-        String claimTitleString = "Внимание!" + getCurrentDate() + "T" + getCurrentTime();
+        String claimTitleString = "Заголовок" + getCurrentDate() + "T" + getCurrentTime();
         String newClaimTitleString = "Описание" + getCurrentDate();
         String currentDate = getCurrentDate();
         String currentTime = getCurrentTime();
         MainSteps.createClaim();
-        SystemClock.sleep(2000);
+        SystemClock.sleep(2000); 
+
         CreateClaimSteps.isCreateClaimsScreen();
         CreateClaimSteps.checkClaimTitleLength();
+
         CommonSteps.clickSave();
         CreateClaimSteps.checkToastEmptyFields();
         CommonSteps.clickOK();
+
         CreateClaimSteps.enterClaimTitle(claimTitleString);
         CreateClaimSteps.selectExecutor();
         CreateClaimSteps.enterClaimDate(currentDate);
         CreateClaimSteps.enterClaimTime(currentTime);
         CreateClaimSteps.enterClaimDescription(newClaimTitleString);
+
         CommonSteps.clickCancel();
         CommonSteps.clickCancelText();
         CreateClaimSteps.isCreateClaimsScreen();
+
         CommonSteps.clickCancel();
         CommonSteps.clickOK();
         MainSteps.isMainScreen();
+
         MainSteps.createClaim();
         CreateClaimSteps.isCreateClaimsScreen();
         CreateClaimSteps.enterClaimTitle(claimTitleString);
@@ -142,18 +183,12 @@ public class AppActivityTest {
         CreateClaimSteps.enterClaimDescription(newClaimTitleString);
         CommonSteps.clickSave();
         SystemClock.sleep(1000);
-
         MainSteps.openAllClaims();
-
-        if (isDisplayedWithSwipe(onView(withText(claimTitleString)), 2, true)) {
-            onView(withText(claimTitleString)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
-        } else {
-            throw new NoSuchElementException("Not found " + onView(withText(claimTitleString)).toString());
-        }
-        ;
     }
 
+     
     @Test
+    @DisplayName("Фильтрация объявлений")
     public void filteringClaims() {
         MainSteps.openAllClaims();
         ClaimsSteps.openFiltering();
@@ -161,10 +196,12 @@ public class AppActivityTest {
         ClaimsSteps.clickCancel();
         ClaimsSteps.openFiltering();
         ClaimsSteps.checkCheckboxInProgress(true);
+
         ClaimsSteps.clickCheckboxInProgress();
         ClaimsSteps.clickOK();
         checkClaimStatus("Open");
         ClaimsSteps.isClaimsScreen();
+
         ClaimsSteps.openFiltering();
         ClaimsSteps.clickCheckboxOpen();
         ClaimsSteps.checkCheckboxOpen(false);
@@ -173,6 +210,7 @@ public class AppActivityTest {
         ClaimsSteps.clickOK();
         checkClaimStatus("In progress");
         ClaimsSteps.isClaimsScreen();
+
         ClaimsSteps.openFiltering();
         ClaimsSteps.clickCheckboxExecuted();
         ClaimsSteps.checkCheckboxExecuted(true);
@@ -181,6 +219,7 @@ public class AppActivityTest {
         ClaimsSteps.clickOK();
         checkClaimStatus("Executed");
         ClaimsSteps.isClaimsScreen();
+
         ClaimsSteps.openFiltering();
         ClaimsSteps.clickCheckboxCancelled();
         ClaimsSteps.checkCheckboxCancelled(true);
@@ -192,21 +231,8 @@ public class AppActivityTest {
     }
 
     @Test
-    public void expandSingleNews() {
-        MainSteps.expandSingleNews();
-        MainSteps.collapseSingleNews();
-    }
-
-    @Test
-    public void openSingleClaim() {
-        MainSteps.openSingleClaim();
-        EditClaimSteps.isClaimsEditScreen();
-        EditClaimSteps.backFromClaim();
-        MainSteps.isMainScreen();
-    }
-
-    @Test
-    public void claimScreen() {
+    @DisplayName("Открытие экрана объявлений из меню и переход к экрану создания объявления")
+    public void claimScreen() { 
         CommonSteps.goToScreen("Claims");
         ClaimsSteps.isClaimsScreen();
 
@@ -215,6 +241,7 @@ public class AppActivityTest {
     }
 
     @Test
+    @DisplayName("Сортировка новостей на экране новостей")
     public void newsScreenSorting() {
         CommonSteps.goToScreen("News");
         NewsSteps.isNewsScreen();
@@ -229,10 +256,13 @@ public class AppActivityTest {
     }
 
     @Test
+    @DisplayName("Сортировка новостей на экране управления")
     public void controlPanelSorting() {
         CommonSteps.goToScreen("News");
         NewsSteps.isNewsScreen();
+
         NewsSteps.goToControlPanel();
+
         String firstNews = NewsSteps.getFirstNewsTitle();
         String firstPublicationDate = ControlPanelSteps.getFirstNewsPublicationDate();
         String firstCreationDate = ControlPanelSteps.getFirstNewsCreationDate();
@@ -249,20 +279,26 @@ public class AppActivityTest {
     }
 
     @Test
+    @DisplayName("Создание новости")
     public void controlPanelCreateNews() {
         CommonSteps.goToScreen("News");
         NewsSteps.isNewsScreen();
+
         NewsSteps.goToControlPanel();
+
         ControlPanelSteps.createNews();
         CreateNewsSteps.isCreateNewsScreen();
+
         CreateNewsSteps.selectNewsCategory();
         CreateNewsSteps.enterNewsTitle(newsTitleString);
         CommonSteps.clickCancel();
         CommonSteps.clickCancelText();
         CreateNewsSteps.checkNewsTitle(newsTitleString);
+
         CommonSteps.clickCancel();
         CommonSteps.clickOK();
         ControlPanelSteps.isControlPanel();
+
         ControlPanelSteps.createNews();
         CreateNewsSteps.isCreateNewsScreen();
         CreateNewsSteps.selectNewsCategory();
@@ -271,6 +307,7 @@ public class AppActivityTest {
         CreateNewsSteps.enterNewsTime(newsTime);
         CreateNewsSteps.enterNewsDescription(newsDescriptionString);
         CreateNewsSteps.checkNewsSwitcher();
+
         CommonSteps.clickSave();
         ControlPanelSteps.isControlPanel();
         if (isDisplayedWithSwipe(onView(withText(newsTitleString)), 1, true)) {
@@ -283,11 +320,14 @@ public class AppActivityTest {
 
 
     @Test
+    @DisplayName("Сортировка новостей")
     public void newsScreenFiltering() {
         CommonSteps.goToScreen("News");
         NewsSteps.isNewsScreen();
+
         NewsSteps.goToControlPanel();
         ControlPanelSteps.isControlPanel();
+
         ControlPanelSteps.createNews();
         CreateNewsSteps.isCreateNewsScreen();
         CreateNewsSteps.selectNewsCategory();
@@ -296,25 +336,34 @@ public class AppActivityTest {
         CreateNewsSteps.enterNewsTime(newsTime);
         CreateNewsSteps.enterNewsDescription(newsDescriptionString);
         CreateNewsSteps.checkNewsSwitcher();
+
         CommonSteps.clickSave();
         ControlPanelSteps.isControlPanel();
+
         CommonSteps.goToScreen("News");
         NewsSteps.isNewsScreen();
+
         NewsSteps.openFilter();
         NewsFilterSteps.enterPublishDateStart(newsPublicationDate);
         NewsFilterSteps.enterPublishDateEnd(newsPublicationDate);
         NewsFilterSteps.clickFilter();
+
         NewsSteps.checkFirstNewsDate(newsPublicationDate);
+
         NewsSteps.goToControlPanel();
         ControlPanelSteps.isControlPanel();
+
         NewsSteps.openFilter();
         NewsFilterSteps.enterPublishDateStart(newsPublicationDate);
         NewsFilterSteps.enterPublishDateEnd(newsPublicationDate);
         NewsFilterSteps.clickFilter();
+
         ControlPanelSteps.checkFirstPublicationDate(newsPublicationDate);
-        ControlPanelSteps.clickEditNews();
+
+        ControlPanelSteps.clickEditNews(); 
         CreateNewsSteps.clickNewsSwitcher();
         CommonSteps.clickSave();
+
         NewsSteps.openFilter();
         NewsFilterSteps.enterPublishDateStart(newsPublicationDate);
         NewsFilterSteps.enterPublishDateEnd(newsPublicationDate);
@@ -322,30 +371,25 @@ public class AppActivityTest {
         NewsFilterSteps.checkCheckboxActive(false);
         NewsFilterSteps.checkCheckboxNotActive(true);
         NewsFilterSteps.clickFilter();
+
         ControlPanelSteps.checkFirstPublicationDateNotActive(newsPublicationDate);
         ControlPanelSteps.checkNewsStatus();
+
         ControlPanelSteps.checkNewsStatusNotActive();
         CreateNewsSteps.clickNewsSwitcher();
         CommonSteps.clickSave();
-        NewsSteps.openFilter();
-        NewsFilterSteps.enterPublishDateStart(newsPublicationDate);
-        NewsFilterSteps.enterPublishDateEnd(newsPublicationDate);
-        NewsFilterSteps.checkCheckboxActive(true);
-        NewsFilterSteps.clickCheckboxNotActive();
-        NewsFilterSteps.checkCheckboxNotActive(false);
-        NewsFilterSteps.clickFilter();
-        ControlPanelSteps.checkFirstPublicationDateActive(newsPublicationDate);
-        ControlPanelSteps.checkNewsStatusActive();
-        ControlPanelSteps.clickDeleteNews();
-        CommonSteps.clickOK();
-    }
 
-    @Test
+
+}
+      @Test
+    @DisplayName("Редактирование и удаление новости")
     public void newsEditingDeleting() {
         CommonSteps.goToScreen("News");
         NewsSteps.isNewsScreen();
+
         NewsSteps.goToControlPanel();
         ControlPanelSteps.isControlPanel();
+
         ControlPanelSteps.createNews();
         CreateNewsSteps.isCreateNewsScreen();
         CreateNewsSteps.selectNewsCategory();
@@ -354,41 +398,36 @@ public class AppActivityTest {
         CreateNewsSteps.enterNewsTime(newsTime);
         CreateNewsSteps.enterNewsDescription(newsDescriptionString);
         CreateNewsSteps.checkNewsSwitcher();
+
         CommonSteps.clickSave();
         ControlPanelSteps.isControlPanel();
-        if (isDisplayedWithSwipe(onView(withText(newsTitleString)), 1, true)) {
-            onView(withText(newsTitleString)).check(matches(isDisplayed())).perform(click());
-        }
 
         ControlPanelSteps.checkNewsDescription(true);
         ControlPanelSteps.clickNewsTitle();
         SystemClock.sleep(1500);
         ControlPanelSteps.checkNewsDescription(false);
+
         ControlPanelSteps.clickEditThisNews();
         CreateNewsSteps.isEditNewsScreen();
         CreateNewsSteps.checkNewsTitle(newsTitleString);
         CreateNewsSteps.enterNewsTitle(newNewsTitle);
         CommonSteps.clickSave();
+
         ControlPanelSteps.isControlPanel();
         if (isDisplayedWithSwipe(onView(withText(newNewsTitle)), 1, true)) {
             onView(withText(newNewsTitle)).check(matches(isDisplayed()));
         }
 
         ControlPanelSteps.clickDeleteThisNews();
-        CommonSteps.clickOK();
+        CommonSteps.clickOK(); 
         SystemClock.sleep(1500);
-
+        if (isDisplayedWithSwipe(onView(withText(newNewsTitle)), 1, false)) {
+            throw new NoSuchElementException("Not delete!");
+        }
     }
 
     @Test
-    public void thematicQuotesCheck() {
-        CommonSteps.goToThematicQuotes();
-        ThematicQuotesSteps.checkAll();
-        ThematicQuotesSteps.expandQuote();
-        ThematicQuotesSteps.collapseQuote();
-    }
-
-    @Test
+    @DisplayName("Открытие экрана о приложение и возврат на главный экран")
     public void aboutScreenAndBackToMain() {
         CommonSteps.goToScreen("About");
         AboutSteps.checkEverythingYouWant();
@@ -396,6 +435,13 @@ public class AppActivityTest {
         MainSteps.isMainScreen();
     }
 
-
+    @Test
+    @DisplayName("Открытие экрана тематических цитат и взаимодействие с цитатами")
+    public void thematicQuotes() {
+        CommonSteps.goToThematicQuotes();
+        ThematicQuotesSteps.checkAll();
+        ThematicQuotesSteps.expandQuote();
+        ThematicQuotesSteps.collapseQuote();
+    }
 }
 
