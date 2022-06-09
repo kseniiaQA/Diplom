@@ -12,25 +12,30 @@ import ru.iteco.fmhandroid.ui.elements.CommonElements;
 import ru.iteco.fmhandroid.ui.elements.MainScreen;
 
 public class AuthorizationSteps {
+    Allure.step("Проверка, что это экран авторизации");
     AuthorizationScreen AuthorizationScreen = new AuthorizationScreen();
     CommonElements CommonElements = new CommonElements();
     MainScreen MainScreen = new MainScreen();
 
     public void isAuthorizationScreen() {
+        Allure.step("Проверка, что это экран авторизации");
         AuthorizationScreen.authorization.check(matches(isDisplayed()));
     }
 
     public void enterLogin(String text) {
+         Allure.step("Ввод логина '" + text + "'");
         AuthorizationScreen.login.check(matches(isEnabled()));
         AuthorizationScreen.login.perform(replaceText(text));
     }
 
     public void enterPassword(String text) {
+        Allure.step("Ввод пароля '" + text + "'");
         AuthorizationScreen.password.check(matches(isEnabled()));
         AuthorizationScreen.password.perform(replaceText(text));
     }
 
     public void signIn() {
+        Allure.step("Нажатие кнопки входа");
         AuthorizationScreen.buttonSignIn.check(matches(isClickable()));
         AuthorizationScreen.buttonSignIn.perform(click());
     }
