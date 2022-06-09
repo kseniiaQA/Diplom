@@ -13,10 +13,12 @@ public class EditClaimSteps {
     EditClaimScreen EditClaimScreen = new EditClaimScreen();
 
     public void isClaimsEditScreen() {
+        Allure.step("Убедиться что можно отредактироват объявление");
         EditClaimScreen.claimStatus.check(matches(isDisplayed()));
     }
 
     public void backFromClaim() {
+        Allure.step("Уйти назад из раздела объявлений");
         EditClaimScreen.backButton.perform(nestedScrollTo());
         EditClaimScreen.backButton.perform(click());
     }
