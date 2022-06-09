@@ -13,6 +13,7 @@ public class AboutSteps {
     AboutScreen AboutScreen = new AboutScreen();
 
     public void checkEverythingYouWant() {
+        Allure.step("Проверка всех данных"); 
         AboutScreen.versionTitle.check(matches(allOf(withText("Version:"), isDisplayed())));
         AboutScreen.version.check(matches(allOf(withText("1.0.0"), isDisplayed())));
         AboutScreen.privacyPolicy.check(matches(allOf(withText("https://vhospice.org/#/privacy-policy/"), isDisplayed(), isClickable())));
@@ -22,6 +23,7 @@ public class AboutSteps {
     }
 
     public void goBack() {
-        AboutScreen.buttonBack.perform(click());
+        Allure.step("Возврат к предыдущему экрану");
+        AboutScreen.buttonBack.perform(click()); 
     }
 }
