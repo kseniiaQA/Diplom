@@ -16,40 +16,49 @@ public class ClaimsSteps {
     ClaimScreen ClaimScreen = new ClaimScreen();
 
     public void isClaimsScreen() {
+        Allure.step("Проверка, что это экран объявлений");
         MainScreen.addNewClaimButton.check(matches(isDisplayed()));
         MainScreen.allNews.check(doesNotExist());
     }
 
     public void openFiltering() {
+        Allure.step("Открытие фильтра"); 
         ClaimScreen.buttonFiltering.perform(click());
         ClaimScreen.titleFiltering.check(matches(isDisplayed()));
     }
 
     public void clickCheckboxInProgress() {
+        Allure.step("Отметить чекбокс в процессе");
         ClaimScreen.inProgress.perform(click());
     }
 
     public void clickCheckboxOpen() {
+        Allure.step("Отметить чекбокс открыт");
         ClaimScreen.open.perform(click());
     }
 
     public void clickCheckboxExecuted() {
+        Allure.step("Отметить чекбокс выполнен");
         ClaimScreen.executed.perform(click());
     }
 
     public void clickCheckboxCancelled() {
+        Allure.step("Отметить чекбокс отменен");
         ClaimScreen.cancelled.perform(click());
     }
 
     public void clickCancel() {
+        Allure.step("Кликнуть отмена");
         ClaimScreen.buttonCancel.perform(click());
     }
 
     public void clickOK() {
+        Allure.step("Кликнуть ОК");
         ClaimScreen.buttonOk.perform(click());
     }
 
     public void checkCheckboxInProgress(boolean checked) {
+        Allure.step("Проверить состояние чекбокса в процессе");
         if (checked) {
             ClaimScreen.inProgress.check(matches(isChecked()));
         } else {
@@ -58,6 +67,7 @@ public class ClaimsSteps {
     }
 
     public void checkCheckboxOpen(boolean checked) {
+        Allure.step("Проверить состояние чекбокса открыт");
         if (checked) {
             ClaimScreen.open.check(matches(isChecked()));
         } else {
@@ -66,6 +76,7 @@ public class ClaimsSteps {
     }
 
     public void checkCheckboxExecuted(boolean checked) {
+        Allure.step("Проверить состояние чекбокса проверен"); 
         if (checked) {
             ClaimScreen.executed.check(matches(isChecked()));
         } else {
@@ -74,6 +85,7 @@ public class ClaimsSteps {
     }
 
     public void checkCheckboxCancelled(boolean checked) {
+        Allure.step("Проверить состояние чекбокса выполнен);
         if (checked) {
             ClaimScreen.cancelled.check(matches(isChecked()));
         } else {
@@ -82,6 +94,7 @@ public class ClaimsSteps {
     }
 
     public void createClaim() {
+        Allure.step("Создать объявление");
         ClaimScreen.addNewClaimButton.perform(click());
     }
 }
