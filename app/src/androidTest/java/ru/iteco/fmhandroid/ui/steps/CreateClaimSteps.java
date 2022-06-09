@@ -19,10 +19,10 @@ public class CreateClaimSteps {
         CreateClaimScreen.title.check(matches(withText("Creating")));
         CreateClaimScreen.subTitle.check(matches(withText("Claims")));
     }
-
+ 
     public void checkClaimTitleLength() {
-        CreateClaimScreen.claimTitle.perform(replaceText("Здравствуйте, я ваша тетя и я не влезу в это поле ввода"));
-        CreateClaimScreen.claimTitle.check(matches(withText("Здравствуйте, я ваша тетя и я не влезу в это поле ")));
+        CreateClaimScreen.claimTitle.perform(replaceText("один два три"));
+        CreateClaimScreen.claimTitle.check(matches(withText("один два три")));
     }
 
     public void checkToastEmptyFields() {
