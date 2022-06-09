@@ -13,17 +13,20 @@ public class ThematicQuotesSteps {
     ThematicQuotesScreen ThematicQuotesScreen = new ThematicQuotesScreen();
 
     public void checkAll() {
+        Allure.step("проверить все цитаты");
         ThematicQuotesScreen.title.check(matches(allOf(withText("Love is all"), isDisplayed())));
         ThematicQuotesScreen.icon.check(matches(isDisplayed()));
         ThematicQuotesScreen.thematicTitle.check(matches(isDisplayed()));
     }
 
     public void expandQuote() {
+        Allure.step("Развернуть цитату");
         ThematicQuotesScreen.thematicTitleClickable.perform(click());
         ThematicQuotesScreen.thematicDescription.check(matches(isDisplayed()));
     }
 
     public void collapseQuote() {
+        Allure.step("Свернуть цитату");
         ThematicQuotesScreen.thematicTitleClickable2.perform(click());
         ThematicQuotesScreen.thematicDescriptionAfterClick.check(matches(not(isDisplayed())));
     }
