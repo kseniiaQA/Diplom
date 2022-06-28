@@ -357,7 +357,7 @@ public class AppActivityTest {
 
         ControlPanelSteps.checkFirstPublicationDate(newsPublicationDate);
 
-        ControlPanelSteps.clickEditNews(); 
+        ControlPanelSteps.clickEditNews();
         CreateNewsSteps.clickNewsSwitcher();
         CommonSteps.clickSave();
 
@@ -376,6 +376,19 @@ public class AppActivityTest {
         CreateNewsSteps.clickNewsSwitcher();
         CommonSteps.clickSave();
 
+        NewsSteps.openFilter();
+        NewsFilterSteps.enterPublishDateStart(newsPublicationDate);
+        NewsFilterSteps.enterPublishDateEnd(newsPublicationDate);
+        NewsFilterSteps.checkCheckboxActive(true);
+        NewsFilterSteps.clickCheckboxNotActive();
+        NewsFilterSteps.checkCheckboxNotActive(false);
+        NewsFilterSteps.clickFilter();
+
+        ControlPanelSteps.checkFirstPublicationDateActive(newsPublicationDate);
+        ControlPanelSteps.checkNewsStatusActive();
+
+        ControlPanelSteps.clickDeleteNews();
+        CommonSteps.clickOK();    
 
 }
       @Test
