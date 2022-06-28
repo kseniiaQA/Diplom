@@ -6,7 +6,7 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
+import io.qameta.allure.kotlin.Allure;
 import static org.hamcrest.Matchers.allOf;
 
 import ru.iteco.fmhandroid.ui.elements.CreateNewsScreen;
