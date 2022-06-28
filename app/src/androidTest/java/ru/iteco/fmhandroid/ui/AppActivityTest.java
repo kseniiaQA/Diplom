@@ -184,6 +184,7 @@ public class AppActivityTest {
         CommonSteps.clickSave();
         SystemClock.sleep(1000);
         MainSteps.openAllClaims();
+        onView(withText(claimTitleString)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
     }
 
      
@@ -308,12 +309,8 @@ public class AppActivityTest {
         CreateNewsSteps.enterNewsDescription(newsDescriptionString);
         CreateNewsSteps.checkNewsSwitcher();
 
-        CommonSteps.clickSave();
+        CommonSteps.clickSave(); 
         ControlPanelSteps.isControlPanel();
-        if (isDisplayedWithSwipe(onView(withText(newsTitleString)), 1, true)) {
-            onView(withText(newsTitleString)).check(matches(isDisplayed()));
-        }
-
         onView(allOf(withId(R.id.delete_news_item_image_view), withParent(withParent(allOf(withId(R.id.news_item_material_card_view), withChild(withChild(withText(newsTitleString)))))))).perform(click());
         CommonSteps.clickOK();
     }
@@ -414,16 +411,7 @@ public class AppActivityTest {
         CommonSteps.clickSave();
 
         ControlPanelSteps.isControlPanel();
-        if (isDisplayedWithSwipe(onView(withText(newNewsTitle)), 1, true)) {
             onView(withText(newNewsTitle)).check(matches(isDisplayed()));
-        }
-
-        ControlPanelSteps.clickDeleteThisNews();
-        CommonSteps.clickOK(); 
-        SystemClock.sleep(1500);
-        if (isDisplayedWithSwipe(onView(withText(newNewsTitle)), 1, false)) {
-            throw new NoSuchElementException("Not delete!");
-        }
     }
 
     @Test
