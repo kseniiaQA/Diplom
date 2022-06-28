@@ -3,7 +3,7 @@ package ru.iteco.fmhandroid.ui.steps;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-
+import io.qameta.allure.kotlin.Allure;
 import static ru.iteco.fmhandroid.ui.utils.Utils.nestedScrollTo;
 
 import ru.iteco.fmhandroid.ui.elements.EditClaimScreen;
