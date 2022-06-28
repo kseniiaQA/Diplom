@@ -1,7 +1,7 @@
 package ru.iteco.fmhandroid.ui.steps;
 
 import static androidx.test.espresso.action.ViewActions.click;
-
+import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.ui.elements.CommonElements;
 
 public class CommonSteps {
