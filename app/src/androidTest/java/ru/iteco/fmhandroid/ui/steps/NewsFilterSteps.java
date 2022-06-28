@@ -5,7 +5,7 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isChecked;
 import static androidx.test.espresso.matcher.ViewMatchers.isNotChecked;
-
+import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.ui.elements.NewsFilterScreen;
 
 public class NewsFilterSteps {
