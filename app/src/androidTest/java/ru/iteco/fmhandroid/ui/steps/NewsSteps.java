@@ -4,7 +4,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
+import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.ui.elements.NewsScreen;
 import ru.iteco.fmhandroid.ui.utils.Utils;
 
