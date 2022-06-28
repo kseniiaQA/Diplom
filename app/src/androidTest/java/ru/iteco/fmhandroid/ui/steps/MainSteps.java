@@ -5,7 +5,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
-
+import io.qameta.allure.kotlin.Allure;
 import static org.hamcrest.CoreMatchers.not;
 
 import android.os.SystemClock;
