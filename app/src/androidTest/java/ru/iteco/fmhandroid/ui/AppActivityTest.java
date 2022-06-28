@@ -425,8 +425,24 @@ public class AppActivityTest {
         CommonSteps.clickSave();
 
         ControlPanelSteps.isControlPanel();
-            onView(withText(newNewsTitle)).check(matches(isDisplayed()));
-    }
+        onView(withText(newNewsTitle)).check(matches(isDisplayed()));
+        ControlPanelSteps.checkNewsDescription(true);
+        ControlPanelSteps.clickNewsTitle(); 
+        SystemClock.sleep(1500);
+        ControlPanelSteps.checkNewsDescription(false);
+
+        ControlPanelSteps.clickEditThisNews();
+        CreateNewsSteps.isEditNewsScreen();
+        CreateNewsSteps.checkNewsTitle(newsTitleString);
+        CreateNewsSteps.enterNewsTitle(newNewsTitle);
+        CommonSteps.clickSave();
+
+        ControlPanelSteps.isControlPanel();
+        onView(withText(newNewsTitle)).check(matches(isDisplayed()));
+
+      
+        }
+
 
     @Test
     @DisplayName("Открытие экрана о приложение и возврат на главный экран")
