@@ -6,7 +6,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
-
+import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.ui.elements.AuthorizationScreen;
 import ru.iteco.fmhandroid.ui.elements.CommonElements;
 import ru.iteco.fmhandroid.ui.elements.MainScreen;
