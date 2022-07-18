@@ -15,22 +15,22 @@ public class CommonSteps {
     }
 
     public void clickSave() {
-        Allure.step("Нажать "Сохранить"); 
+        Allure.step("Нажать Сохранить");
         CommonElements.buttonSave.perform(click());
     }
 
     public void clickOK() {
-        Allure.step("Нажать "ок"); 
+        Allure.step("Нажать ок");
         CommonElements.buttonOkText.perform(click());
     }
 
     public void clickCancel() {
-         Allure.step("Нажать "Отменить"); 
+         Allure.step("Нажать Отменить");
         CommonElements.buttonCancel.perform(click());
     }
 
     public void clickCancelText() {
-         Allure.step("Нажать "Отменить текст"); 
+         Allure.step("Нажать Отменить текст");
         CommonElements.buttonCancelText.perform(click());
     }
 

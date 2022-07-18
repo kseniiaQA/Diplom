@@ -85,7 +85,7 @@ public class ClaimsSteps {
     }
 
     public void checkCheckboxCancelled(boolean checked) {
-        Allure.step("Проверить состояние чекбокса выполнен);
+        Allure.step("Проверить состояние чекбокса выполнен");
         if (checked) {
             ClaimScreen.cancelled.check(matches(isChecked()));
         } else {

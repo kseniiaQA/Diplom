@@ -12,7 +12,7 @@ import ru.iteco.fmhandroid.ui.elements.CommonElements;
 import ru.iteco.fmhandroid.ui.elements.MainScreen;
 
 public class AuthorizationSteps {
-    Allure.step("Проверка, что это экран авторизации");
+
     AuthorizationScreen AuthorizationScreen = new AuthorizationScreen();
     CommonElements CommonElements = new CommonElements();
     MainScreen MainScreen = new MainScreen();

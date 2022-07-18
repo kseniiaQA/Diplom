@@ -75,9 +75,9 @@ public class AppActivityTest {
     AboutSteps AboutSteps = new AboutSteps();
     ThematicQuotesSteps ThematicQuotesSteps = new ThematicQuotesSteps();
 
-    public static String newsTitleString = "Некий заголовок" + getCurrentDate() + "T" + getCurrentTime();
-    public static String newsDescriptionString = "Пробе пера" + getCurrentDate() + "T" + getCurrentTime();
-    public static String newNewsTitle = "Чудо чудесное" + getCurrentDate() + "T" + getCurrentTime();
+    public static String newsTitleString = "заголовок" + getCurrentDate() + "T" + getCurrentTime();
+    public static String newsDescriptionString = "строка" + getCurrentDate() + "T" + getCurrentTime();
+    public static String newNewsTitle = "заголовок2" + getCurrentDate() + "T" + getCurrentTime();
     String newsPublicationDate = getCurrentDate();
     String newsTime = getCurrentTime();
 
@@ -98,7 +98,6 @@ public class AppActivityTest {
         SystemClock.sleep(2000);
     }
 
-   
 
     @Test
     @DisplayName("Открытие экрана новостей")
@@ -114,7 +113,6 @@ public class AppActivityTest {
         MainSteps.allNewsNotDisplayed();
         MainSteps.expandAllClaims();
         MainSteps.allClaimsNotDisplayed();
-
         MainSteps.expandAllNews();
         MainSteps.allNewsDisplayed();
         MainSteps.expandAllClaims();
@@ -152,29 +150,23 @@ public class AppActivityTest {
         String currentDate = getCurrentDate();
         String currentTime = getCurrentTime();
         MainSteps.createClaim();
-        SystemClock.sleep(2000); 
-
+        SystemClock.sleep(2000);
         CreateClaimSteps.isCreateClaimsScreen();
         CreateClaimSteps.checkClaimTitleLength();
-
         CommonSteps.clickSave();
         CreateClaimSteps.checkToastEmptyFields();
         CommonSteps.clickOK();
-
         CreateClaimSteps.enterClaimTitle(claimTitleString);
         CreateClaimSteps.selectExecutor();
         CreateClaimSteps.enterClaimDate(currentDate);
         CreateClaimSteps.enterClaimTime(currentTime);
         CreateClaimSteps.enterClaimDescription(newClaimTitleString);
-
         CommonSteps.clickCancel();
         CommonSteps.clickCancelText();
         CreateClaimSteps.isCreateClaimsScreen();
-
         CommonSteps.clickCancel();
         CommonSteps.clickOK();
         MainSteps.isMainScreen();
-
         MainSteps.createClaim();
         CreateClaimSteps.isCreateClaimsScreen();
         CreateClaimSteps.enterClaimTitle(claimTitleString);
@@ -198,12 +190,10 @@ public class AppActivityTest {
         ClaimsSteps.clickCancel();
         ClaimsSteps.openFiltering();
         ClaimsSteps.checkCheckboxInProgress(true);
-
         ClaimsSteps.clickCheckboxInProgress();
         ClaimsSteps.clickOK();
         checkClaimStatus("Open");
         ClaimsSteps.isClaimsScreen();
-
         ClaimsSteps.openFiltering();
         ClaimsSteps.clickCheckboxOpen();
         ClaimsSteps.checkCheckboxOpen(false);
@@ -212,7 +202,6 @@ public class AppActivityTest {
         ClaimsSteps.clickOK();
         checkClaimStatus("In progress");
         ClaimsSteps.isClaimsScreen();
-
         ClaimsSteps.openFiltering();
         ClaimsSteps.clickCheckboxExecuted();
         ClaimsSteps.checkCheckboxExecuted(true);
@@ -221,7 +210,6 @@ public class AppActivityTest {
         ClaimsSteps.clickOK();
         checkClaimStatus("Executed");
         ClaimsSteps.isClaimsScreen();
-
         ClaimsSteps.openFiltering();
         ClaimsSteps.clickCheckboxCancelled();
         ClaimsSteps.checkCheckboxCancelled(true);
@@ -237,7 +225,6 @@ public class AppActivityTest {
     public void claimScreen() { 
         CommonSteps.goToScreen("Claims");
         ClaimsSteps.isClaimsScreen();
-
         ClaimsSteps.createClaim();
         CreateClaimSteps.isCreateClaimsScreen();
     }
@@ -247,7 +234,6 @@ public class AppActivityTest {
     public void newsScreenSorting() {
         CommonSteps.goToScreen("News");
         NewsSteps.isNewsScreen();
-
         String firstNews = NewsSteps.getFirstNewsTitle();
         NewsSteps.clickSortButton();
         String lastNews = NewsSteps.getLastNewsTitle();
@@ -262,9 +248,7 @@ public class AppActivityTest {
     public void controlPanelSorting() {
         CommonSteps.goToScreen("News");
         NewsSteps.isNewsScreen();
-
         NewsSteps.goToControlPanel();
-
         String firstNews = NewsSteps.getFirstNewsTitle();
         String firstPublicationDate = ControlPanelSteps.getFirstNewsPublicationDate();
         String firstCreationDate = ControlPanelSteps.getFirstNewsCreationDate();
@@ -285,22 +269,17 @@ public class AppActivityTest {
     public void controlPanelCreateNews() {
         CommonSteps.goToScreen("News");
         NewsSteps.isNewsScreen();
-
         NewsSteps.goToControlPanel();
-
         ControlPanelSteps.createNews();
         CreateNewsSteps.isCreateNewsScreen();
-
         CreateNewsSteps.selectNewsCategory();
         CreateNewsSteps.enterNewsTitle(newsTitleString);
         CommonSteps.clickCancel();
         CommonSteps.clickCancelText();
         CreateNewsSteps.checkNewsTitle(newsTitleString);
-
         CommonSteps.clickCancel();
         CommonSteps.clickOK();
         ControlPanelSteps.isControlPanel();
-
         ControlPanelSteps.createNews();
         CreateNewsSteps.isCreateNewsScreen();
         CreateNewsSteps.selectNewsCategory();
@@ -309,7 +288,6 @@ public class AppActivityTest {
         CreateNewsSteps.enterNewsTime(newsTime);
         CreateNewsSteps.enterNewsDescription(newsDescriptionString);
         CreateNewsSteps.checkNewsSwitcher();
-
         CommonSteps.clickSave(); 
         ControlPanelSteps.isControlPanel();
         onView(allOf(withId(R.id.delete_news_item_image_view), withParent(withParent(allOf(withId(R.id.news_item_material_card_view), withChild(withChild(withText(newsTitleString)))))))).perform(click());
@@ -322,10 +300,8 @@ public class AppActivityTest {
     public void newsScreenFiltering() {
         CommonSteps.goToScreen("News");
         NewsSteps.isNewsScreen();
-
         NewsSteps.goToControlPanel();
         ControlPanelSteps.isControlPanel();
-
         ControlPanelSteps.createNews();
         CreateNewsSteps.isCreateNewsScreen();
         CreateNewsSteps.selectNewsCategory();
@@ -334,34 +310,25 @@ public class AppActivityTest {
         CreateNewsSteps.enterNewsTime(newsTime);
         CreateNewsSteps.enterNewsDescription(newsDescriptionString);
         CreateNewsSteps.checkNewsSwitcher();
-
         CommonSteps.clickSave();
         ControlPanelSteps.isControlPanel();
-
         CommonSteps.goToScreen("News");
         NewsSteps.isNewsScreen();
-
         NewsSteps.openFilter();
         NewsFilterSteps.enterPublishDateStart(newsPublicationDate);
         NewsFilterSteps.enterPublishDateEnd(newsPublicationDate);
         NewsFilterSteps.clickFilter();
-
         NewsSteps.checkFirstNewsDate(newsPublicationDate);
-
         NewsSteps.goToControlPanel();
         ControlPanelSteps.isControlPanel();
-
         NewsSteps.openFilter();
         NewsFilterSteps.enterPublishDateStart(newsPublicationDate);
         NewsFilterSteps.enterPublishDateEnd(newsPublicationDate);
         NewsFilterSteps.clickFilter();
-
         ControlPanelSteps.checkFirstPublicationDate(newsPublicationDate);
-
         ControlPanelSteps.clickEditNews();
         CreateNewsSteps.clickNewsSwitcher();
         CommonSteps.clickSave();
-
         NewsSteps.openFilter();
         NewsFilterSteps.enterPublishDateStart(newsPublicationDate);
         NewsFilterSteps.enterPublishDateEnd(newsPublicationDate);
@@ -369,14 +336,11 @@ public class AppActivityTest {
         NewsFilterSteps.checkCheckboxActive(false);
         NewsFilterSteps.checkCheckboxNotActive(true);
         NewsFilterSteps.clickFilter();
-
         ControlPanelSteps.checkFirstPublicationDateNotActive(newsPublicationDate);
         ControlPanelSteps.checkNewsStatus();
-
         ControlPanelSteps.checkNewsStatusNotActive();
         CreateNewsSteps.clickNewsSwitcher();
         CommonSteps.clickSave();
-
         NewsSteps.openFilter();
         NewsFilterSteps.enterPublishDateStart(newsPublicationDate);
         NewsFilterSteps.enterPublishDateEnd(newsPublicationDate);
@@ -384,10 +348,8 @@ public class AppActivityTest {
         NewsFilterSteps.clickCheckboxNotActive();
         NewsFilterSteps.checkCheckboxNotActive(false);
         NewsFilterSteps.clickFilter();
-
         ControlPanelSteps.checkFirstPublicationDateActive(newsPublicationDate);
         ControlPanelSteps.checkNewsStatusActive();
-
         ControlPanelSteps.clickDeleteNews();
         CommonSteps.clickOK();    
 
@@ -397,10 +359,8 @@ public class AppActivityTest {
     public void newsEditingDeleting() {
         CommonSteps.goToScreen("News");
         NewsSteps.isNewsScreen();
-
         NewsSteps.goToControlPanel();
         ControlPanelSteps.isControlPanel();
-
         ControlPanelSteps.createNews();
         CreateNewsSteps.isCreateNewsScreen();
         CreateNewsSteps.selectNewsCategory();
@@ -409,34 +369,28 @@ public class AppActivityTest {
         CreateNewsSteps.enterNewsTime(newsTime);
         CreateNewsSteps.enterNewsDescription(newsDescriptionString);
         CreateNewsSteps.checkNewsSwitcher();
-
         CommonSteps.clickSave();
         ControlPanelSteps.isControlPanel();
-
         ControlPanelSteps.checkNewsDescription(true);
         ControlPanelSteps.clickNewsTitle();
         SystemClock.sleep(1500);
         ControlPanelSteps.checkNewsDescription(false);
-
         ControlPanelSteps.clickEditThisNews();
         CreateNewsSteps.isEditNewsScreen();
         CreateNewsSteps.checkNewsTitle(newsTitleString);
         CreateNewsSteps.enterNewsTitle(newNewsTitle);
         CommonSteps.clickSave();
-
         ControlPanelSteps.isControlPanel();
         onView(withText(newNewsTitle)).check(matches(isDisplayed()));
         ControlPanelSteps.checkNewsDescription(true);
         ControlPanelSteps.clickNewsTitle(); 
         SystemClock.sleep(1500);
         ControlPanelSteps.checkNewsDescription(false);
-
         ControlPanelSteps.clickEditThisNews();
         CreateNewsSteps.isEditNewsScreen();
         CreateNewsSteps.checkNewsTitle(newsTitleString);
         CreateNewsSteps.enterNewsTitle(newNewsTitle);
         CommonSteps.clickSave();
-
         ControlPanelSteps.isControlPanel();
         onView(withText(newNewsTitle)).check(matches(isDisplayed()));
 

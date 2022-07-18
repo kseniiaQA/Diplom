@@ -8,11 +8,11 @@
   `
   * ` viewModel
   `
-
+ 
 -------------------------------------------------------------------------------
 Имена классов и объектов начинаются с заглавной буквы и используют PascalCase.
 
-  Пример:
+  Пример: 
   * `open class DeclarationProcessor { /*...*/ } 
   `
   * `object EmptyDeclarationProcessor : DeclarationProcessor() { /*...*/ }

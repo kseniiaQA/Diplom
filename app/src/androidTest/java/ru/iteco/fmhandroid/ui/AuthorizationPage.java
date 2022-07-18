@@ -26,15 +26,15 @@ import ru.iteco.fmhandroid.ui.steps.CommonSteps;
 import ru.iteco.fmhandroid.ui.steps.MainSteps;
 
 @RunWith(AllureAndroidJUnit4.class)
-public class AuthorizationPage {
+public class  AuthorizationPage {
 
     AuthorizationSteps AuthorizationSteps = new AuthorizationSteps();
     CommonSteps CommonSteps = new CommonSteps();
     MainSteps MainSteps = new MainSteps();
-
+  
     @Rule
     public ActivityTestRule<AppActivity> mActivityTestRule = new ActivityTestRule<>(AppActivity.class);
-
+ 
     @Before 
     public void logoutCheck() {
         SystemClock.sleep(7000);
@@ -73,7 +73,7 @@ public class AuthorizationPage {
         AuthorizationSteps.isAuthorizationScreen();
         AuthorizationSteps.enterLogin("login2");
         AuthorizationSteps.enterPassword("password2");
-        AuthorizationSteps.signIn();
+        AuthorizationSteps.signIn(); 
         SystemClock.sleep(2500);
         MainSteps.isMainScreen();
         CommonSteps.logout();

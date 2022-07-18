@@ -68,7 +68,7 @@ public class MainSteps {
     }
 
     public void expandSingleNews() {
-        Allure.step("Развернуть одну новость);
+        Allure.step("Развернуть одну новость");
         MainScreen.expandSingleNews.perform(actionOnItemAtPosition(0, click()));
         MainScreen.newsDescription.check(matches(isDisplayed()));
     }
