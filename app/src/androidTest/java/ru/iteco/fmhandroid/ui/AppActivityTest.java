@@ -74,14 +74,10 @@ public class AppActivityTest {
     NewsFilterSteps NewsFilterSteps = new NewsFilterSteps();
     AboutSteps AboutSteps = new AboutSteps();
     ThematicQuotesSteps ThematicQuotesSteps = new ThematicQuotesSteps();
-
     public static String newsTitleString = "заголовок" + getCurrentDate() + "T" + getCurrentTime();
     public static String newsDescriptionString = "строка" + getCurrentDate() + "T" + getCurrentTime();
     public static String newNewsTitle = "заголовок2" + getCurrentDate() + "T" + getCurrentTime();
-    
-    public static String newsTitleEmptyString = "" + getCurrentDate() + "" + getCurrentTime();
-    public static String newsDescriptionEmptyString = "" + getCurrentDate() + "" + getCurrentTime();
-    public static String newNewsEmptyTitle = "" + getCurrentDate() + "" + getCurrentTime();
+   
     String newsPublicationDate = getCurrentDate();
     String newsTime = getCurrentTime();
  
@@ -277,13 +273,7 @@ public class AppActivityTest {
         ControlPanelSteps.createNews();
         CreateNewsSteps.isCreateNewsScreen();
         CreateNewsSteps.selectNewsCategory();
-        
-       //Проверка ввода пустых полей ри создании новости
-        CreateNewsSteps.enterNewsEmptyTitle(newsTitleString);
-        CreateNewsSteps.enterNewsEmptyDescription(newsDescriptionString);
-        CreateNewsSteps.enterNewEmptyNewsTitle
-        CommonSteps.clickOK();
-        CommonSteps.clickSave(); 
+       
         onView(withText(newNewsTitle)).check(matches(isNotDisplayed()));
         
         CreateNewsSteps.enterNewsTitle(newsTitleString); 
@@ -302,6 +292,8 @@ public class AppActivityTest {
         CreateNewsSteps.enterNewsDescription(newsDescriptionString);
         CreateNewsSteps.checkNewsSwitcher();
         CommonSteps.clickSave(); 
+        onView(withText(newNewsTitle)).check(matches(isDisplayed()));
+        onView(withText(newNewsDescription)).check(matches(isDisplayed()));
         ControlPanelSteps.isControlPanel();
         onView(allOf(withId(R.id.delete_news_item_image_view), withParent(withParent(allOf(withId(R.id.news_item_material_card_view), withChild(withChild(withText(newsTitleString)))))))).perform(click());
         CommonSteps.clickOK();
