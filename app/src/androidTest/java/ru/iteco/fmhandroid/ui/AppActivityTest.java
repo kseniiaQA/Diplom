@@ -78,9 +78,13 @@ public class AppActivityTest {
     public static String newsTitleString = "заголовок" + getCurrentDate() + "T" + getCurrentTime();
     public static String newsDescriptionString = "строка" + getCurrentDate() + "T" + getCurrentTime();
     public static String newNewsTitle = "заголовок2" + getCurrentDate() + "T" + getCurrentTime();
+    
+    public static String newsTitleEmptyString = "" + getCurrentDate() + "" + getCurrentTime();
+    public static String newsDescriptionEmptyString = "" + getCurrentDate() + "" + getCurrentTime();
+    public static String newNewsEmptyTitle = "" + getCurrentDate() + "" + getCurrentTime();
     String newsPublicationDate = getCurrentDate();
     String newsTime = getCurrentTime();
-
+ 
     @Rule
     public ActivityTestRule<AppActivity> mActivityTestRule = new ActivityTestRule<>(AppActivity.class);
 
@@ -273,7 +277,16 @@ public class AppActivityTest {
         ControlPanelSteps.createNews();
         CreateNewsSteps.isCreateNewsScreen();
         CreateNewsSteps.selectNewsCategory();
-        CreateNewsSteps.enterNewsTitle(newsTitleString);
+        
+       //Проверка ввода пустых полей ри создании новости
+        CreateNewsSteps.enterNewsEmptyTitle(newsTitleString);
+        CreateNewsSteps.enterNewsEmptyDescription(newsDescriptionString);
+        CreateNewsSteps.enterNewEmptyNewsTitle
+        CommonSteps.clickOK();
+        CommonSteps.clickSave(); 
+        onView(withText(newNewsTitle)).check(matches(isNotDisplayed()));
+        
+        CreateNewsSteps.enterNewsTitle(newsTitleString); 
         CommonSteps.clickCancel();
         CommonSteps.clickCancelText();
         CreateNewsSteps.checkNewsTitle(newsTitleString);
